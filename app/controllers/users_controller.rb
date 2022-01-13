@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def index
-    @user = User.all
+    @user = User.paginate(page: params[:page], per_page: 30).order('name ASC')
   end
 
   def new
