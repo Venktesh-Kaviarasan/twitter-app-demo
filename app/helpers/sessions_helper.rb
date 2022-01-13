@@ -4,7 +4,7 @@ module SessionsHelper
   end
 
   def current_user
-    if (user_id == session[:user_id])
+    if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: session[:user_id])
     elsif (user_id = cookies.encrypted[:user_id])
       user = User.find_by(id: user_id)
@@ -12,12 +12,11 @@ module SessionsHelper
         log_in user
         @current_user = user
       end
-
     end
   end
 
   def logged_in?
-    !@current_user.nil?
+    !current_user.nil?
   end
 
   def forget(user)
@@ -41,6 +40,5 @@ module SessionsHelper
   end
 
   # def authorized
-  #   render json: "Unauthorized" unless logged_in?
-  # end
+  #   render json: "Unauthorized" unless loggedcoo
 end
