@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   # before_action :authorized, only: [:show]
-  before_action :logged_in_user, only: [:edit, :update, :show]
+  before_action :logged_in_user, only: [:edit, :update, :show, :delete]  
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: [:delete]
 
   def index
     @user = User.paginate(page: params[:page], per_page: 30).order('name ASC')
@@ -34,7 +35,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])    
+    @user = User.find(params[:id])   
   end
 
   def update
@@ -45,6 +46,17 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "user #{params[:id]} deleted" 
+    redirect_to users_url
+  end
+
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
   end
 
   private
