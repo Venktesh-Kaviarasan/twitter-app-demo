@@ -14,6 +14,7 @@ class MicropostsController < ApplicationController
   end
 
   def destroy
+    debugger
     @micropost.destroy
     flash[:success] = "Tweet deleted"
     redirect_to request.referrer || root_url
