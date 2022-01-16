@@ -67,16 +67,16 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.delivery_method = :smtp
-  host = 'https://demo-twitter-app-ca.herokuapp.com/' #replace with your own url
-  config.action_mailer.default_url_options = { host: host,  }
+  host = 'https://demo-twitter-app-ca.herokuapp.com/' # replace with your own url
+  config.action_mailer.default_url_options = { host: host, }
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :user_name            => ENV['GMAIL_SMTP_USERNAME'],
-    :password             => ENV['GMAIL_SMTP_PASSWORD'],
-    :authentication       => "plain",
+    :address => "smtp.gmail.com",
+    :port => 587,
+    :user_name => ENV['GMAIL_SMTP_USERNAME'],
+    :password => ENV['GMAIL_SMTP_PASSWORD'],
+    :authentication => "plain",
     :enable_starttls_auto => true
   }
 
