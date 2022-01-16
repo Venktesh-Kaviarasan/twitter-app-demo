@@ -37,7 +37,15 @@ class User < ApplicationRecord
   # Micropost specific methods
 
   def feed
-    Micropost.where("user_id = ?", id)
+    # Below query produces feed from the same user.
+    # Micropost.where("user_id = ?", id)
+
+    # The second query doesnt scale when the number of following is large (5000). as it pulls all following into memory and then queries.
+    # Instead we can delegate this to SQL using thrid query.
+    # Micropost.where("user_id IN (?) OR user_id = ?", following_ids, id)
+
+    following_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
 
   def follow(other_user)
