@@ -21,7 +21,7 @@
         <% if logged_in? %>
           <li><%= link_to "Users", users_path %></li>
           <li><%= link_to "Settings", edit_user_path(@current_user) %> </li>
-          <li><%= link_to "Log out", logout_path, method: :delete %></li>
+          <li><%= link_to "Log out", logout_path, method: :delete, data: { confirm: 'log out for sure?'} %></li>
         <% else %>
           <li><%= link_to "Log in", login_path %></li>
         <% end %>
@@ -29,3 +29,6 @@
     </nav>
   </div>
 </header>
+
+<%# button_to('Destroy', 'http://www.example.com',
+          method: "delete", remote: true, data: { confirm: 'Are you sure?', disable_with: 'loading...' }) %>
